@@ -29,7 +29,7 @@ router.post('/', jsonParser, (req, res) => {
     
     let validation = validateFields(BlogPosts.requiredFields, req);
     if( !validation.ok ){
-        res.status(400).send(validation.message);
+        return res.status(400).send(validation.message);
     }
 
     let post = BlogPosts.create(req.body.title
