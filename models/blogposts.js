@@ -53,7 +53,29 @@ const BlogPosts = {
 
 function createBlogPostsModel() {
   const storage = Object.create(BlogPosts);
-  storage.posts = [];
+  storage.posts = [
+    {
+        "id": "420ef05f-2d42-4416-a524-0a419a25cfe7",
+        "title": "New Blog Post Title 3",
+        "content": "This is the content of the new blog post 3 that is being sene over the api.",
+        "author": "New Blog Post Author",
+        "publishDate": 1503636080224
+    },
+    {
+        "id": "e86be3ef-4c44-46d5-adb9-5ce3f12ae239",
+        "title": "New Blog Post Title 2",
+        "content": "This is the content of the new blog post 2 that is being sene over the api.",
+        "author": "New Blog Post Author",
+        "publishDate": 1503636075853
+    },
+    {
+        "id": "e7866390-6c0c-4357-b82e-2bdf21ffe57c",
+        "title": "New Blog Post Title 1",
+        "content": "This is the content of the new blog post 1 that is being sene over the api.",
+        "author": "New Blog Post Author",
+        "publishDate": 1503636070973
+    }
+];
   storage.requiredFields = ['title','content','author'];
   return storage;
 }
