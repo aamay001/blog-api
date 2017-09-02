@@ -8,6 +8,7 @@ const uuid = require('uuid');
 chai.use(chaiHttp);
 
 describe('Blog API', function() {
+    const expectedKeys = ['id', 'title', 'content', 'author', 'publishDate'];
     // Start Server before tests start
     before(function(){
       return runServer();
@@ -27,7 +28,6 @@ describe('Blog API', function() {
             res.should.be.json;
             res.body.should.be.a('array');
             res.body.length.should.be.at.least(1);
-            const expectedKeys = ['id', 'title', 'content', 'author', 'publishDate'];
             res.body.forEach(function(element) {
               element.should.be.a('object');
               element.should.include.keys(expectedKeys)
@@ -40,17 +40,17 @@ describe('Blog API', function() {
     // Test GET single blog posts
     /////////////////////////////////////////
     it('should get a single blog post on GET', function() {
+      const postId = '420ef05f-2d42-4416-a524-0a419a25cfe7';
       return chai.request(app)
-        .get('/blog-posts/420ef05f-2d42-4416-a524-0a419a25cfe7')
+        .get(`/blog-posts/${postId}`)
         .then(function(res){
           res.should.have.status(200);
           res.should.be.json;
           res.body.should.be.a('object');
-          const expectedKeys = ['id', 'title', 'content', 'author', 'publishDate'];
           res.body.should.include.keys(expectedKeys);
           res.body['title'].should.deep.equal('New Blog Post Title 3');
           res.body['author'].should.deep.equal('John Seracusa');
-          res.body.id.should.equal('420ef05f-2d42-4416-a524-0a419a25cfe7');
+          res.body.id.should.equal(postId);
         });
     });
     /////////////////////////////////////////
@@ -70,7 +70,6 @@ describe('Blog API', function() {
           res.should.have.status(201);
           res.should.be.json;
           res.body.should.be.a('object');
-          const expectedKeys = ['id', 'title', 'content', 'author', 'publishDate'];
           res.body.should.include.keys(expectedKeys);
           res.body.id.should.not.be.null;
           res.body.should.deep.equal(Object.assign(newPost, {id:res.body.id}));
@@ -79,7 +78,7 @@ describe('Blog API', function() {
     /////////////////////////////////////////
     // Test DELETE new blog post
     /////////////////////////////////////////
-    it('should delete a post on DELETE', function(){
+    it('should delete a post on DELETE', function() {
       return chai.request(app)
         .get('/blog-posts')
         .then(function(res){
@@ -88,6 +87,29 @@ describe('Blog API', function() {
         })
         .then(function(res){
           res.should.have.status(204);
+        });
+    });
+    /////////////////////////////////////////
+    // Test PUT new blog post
+    /////////////////////////////////////////
+    it('should update a post on PUT', function(){
+      const updateData = {
+        title: "The updated title",
+        content: "This is the updated title. It worked."
+      }
+      return chai.request(app)
+        .get('/blog-posts')
+        .then(function(res){
+          updateData.id = res.body[0].id;
+          return chai.request(app)
+            .put(`/blog-posts/${updateData.id}`)
+            .send(updateData);
+        })
+        .then(function(res){
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          res.body.should.deep.equal(updateData);
         });
     });
 });
