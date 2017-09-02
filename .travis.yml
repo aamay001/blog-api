@@ -1,4 +1,9 @@
 language: node_js
 node_js: node
-- '0.11'
-- '0.10'
+deploy:
+  provider: heroku
+  api_key:
+    secure: JecejSbxcRcboDJ9TOA1su5oPPFvwSrIBdu1te1rM5zTkZ1egpUAye9zMR58CLwzcvg+C804YMLdQL60DAdMqQ7RJ5bR+vQ2M8ILwi2kBhDuGPCTJx+7/AJkQj+0+Wk86aQnm3rs5ASWQ4pWUprkjwznhH7kDQAXc3IorwiySOWQg8wWrOSG/a8rjGZcuWmL9UTbWEJWPCrFKa+mEOJIc0BIQ2f3RmhDn32iAqIMHf4Hyeye0GzEkdzFX8DrTbZwPMv0QB0TR5B5++7K7cRSoGPLBdjBlfK7NfapnkHl6D1K4UXfImSqfJjiYhX49gJwKXlMaI9p9aqk14e9K6epHV1++A4P7oAgm9MYOc5wRx0iplRHao8w7HHXr0ZZExNo9AdPdq7UP664ze8p3PTOm/fgxU/2nly4hCVdUDY1cZGPFpWc20H02OZgVeAV8OAqxA/ijaobXWmRVOI2N+gwNLWrfcFKEackFcshN3Zcs39zfi+H842WEsddCJlY54W41MzXLjYBwc3KdTqJv1oNqNCQdHH/HQZxf4tHWTRh9QLOxS1rAta6aRuJFLM1b4+zK0aGQaHi6rKSSMwhJ/u7bjHM6Q5bUxsEm27QFtoY6b27zzLWGqUni48Z233Brf0JplFhTeF5Z0beCNHlUaHGn3lDLZjegIH9itNTjMR77xQ=
+  app: fast-tor-23506
+  on:
+    repo: aamay001/blog-api

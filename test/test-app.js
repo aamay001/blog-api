@@ -12,12 +12,10 @@ describe('Blog API', function() {
     before(function(){
       return runServer();
     });
-
     // Stop server after tests are done
     after(function(){
       return closeServer();
     });
-
     /////////////////////////////////////////
     // Test GET all blog posts
     /////////////////////////////////////////
@@ -55,11 +53,10 @@ describe('Blog API', function() {
           res.body.id.should.equal('420ef05f-2d42-4416-a524-0a419a25cfe7');
         });
     });
-
     /////////////////////////////////////////
     // Test POST new blog post
     /////////////////////////////////////////
-    it('should add an item on POST', function(){
+    it('should add a post on POST', function(){
       let newPost = {
         title : 'Accidental Tech Podcast',
         content : 'This was an accidental blog post on tech.',
@@ -79,9 +76,18 @@ describe('Blog API', function() {
           res.body.should.deep.equal(Object.assign(newPost, {id:res.body.id}));
         });
     });
+    /////////////////////////////////////////
+    // Test DELETE new blog post
+    /////////////////////////////////////////
+    it('should delete a post on DELETE', function(){
+      return chai.request(app)
+        .get('/blog-posts')
+        .then(function(res){
+          return chai.request(app)
+            .delete(`/blog-posts/${res.body[0].id}`)
+        })
+        .then(function(res){
+          res.should.have.status(204);
+        });
+    });
 });
-
-
-
-
-
