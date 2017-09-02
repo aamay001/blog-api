@@ -21,7 +21,7 @@ describe('Blog API', function() {
     /////////////////////////////////////////
     // Test GET all blog posts
     /////////////////////////////////////////
-    it('should list all blog posts', function() {
+    it('should list all blog posts on GET', function() {
       return chai.request(app)
         .get('/blog-posts')
         .then(function(res) {
@@ -38,7 +38,10 @@ describe('Blog API', function() {
         });
     });
 
-    it('should get a single blog post', function() {
+    /////////////////////////////////////////
+    // Test GET single blog posts
+    /////////////////////////////////////////
+    it('should get a single blog post on GET', function() {
       return chai.request(app)
         .get('/blog-posts/420ef05f-2d42-4416-a524-0a419a25cfe7')
         .then(function(res){
@@ -50,6 +53,30 @@ describe('Blog API', function() {
           res.body['title'].should.deep.equal('New Blog Post Title 3');
           res.body['author'].should.deep.equal('John Seracusa');
           res.body.id.should.equal('420ef05f-2d42-4416-a524-0a419a25cfe7');
+        });
+    });
+
+    /////////////////////////////////////////
+    // Test POST new blog post
+    /////////////////////////////////////////
+    it('should add an item on POST', function(){
+      let newPost = {
+        title : 'Accidental Tech Podcast',
+        content : 'This was an accidental blog post on tech.',
+        author: 'Homer Simpson',
+        publishDate : '05/02/1988'
+      };
+      return chai.request(app)
+        .post('/blog-posts')
+        .send(newPost)
+        .then(function(res){
+          res.should.have.status(201);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          const expectedKeys = ['id', 'title', 'content', 'author', 'publishDate'];
+          res.body.should.include.keys(expectedKeys);
+          res.body.id.should.not.be.null;
+          res.body.should.deep.equal(Object.assign(newPost, {id:res.body.id}));
         });
     });
 });
