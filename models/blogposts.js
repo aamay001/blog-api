@@ -1,3 +1,5 @@
+'use strict';
+
 const uuid = require('uuid');
 
 function StorageException(message) {
@@ -6,7 +8,7 @@ function StorageException(message) {
 }
 
 const BlogPosts = {
-    
+
   create: function(title, content, author, publishDate) {
     const post = {
       id: uuid.v4(),
@@ -58,7 +60,7 @@ function createBlogPostsModel() {
         "id": "420ef05f-2d42-4416-a524-0a419a25cfe7",
         "title": "New Blog Post Title 3",
         "content": "This is the content of the new blog post 3 that is being sene over the api.",
-        "author": "New Blog Post Author",
+        "author": "John Seracusa",
         "publishDate": 1503636080224
     },
     {
@@ -80,6 +82,4 @@ function createBlogPostsModel() {
   return storage;
 }
 
-
 module.exports = {BlogPosts: createBlogPostsModel()};
-

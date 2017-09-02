@@ -4,15 +4,18 @@
   "description": "Blog API using Node and Express.",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js",
-    "start":"node app"
+    "test": "mocha ./test",
+    "start": "node app"
   },
   "author": "Andy Amaya",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "colors": "^1.1.2",
     "express": "^4.15.4",
+    "mocha": "^3.5.0",
     "morgan": "^1.8.2",
     "uuid": "^3.1.0"
   }
