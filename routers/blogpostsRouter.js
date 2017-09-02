@@ -44,6 +44,7 @@ router.post('/', jsonParser, (req, res) => {
 /// DELETE
 ////////////////////////////////////////////////////////////////
 router.delete('/:id', (req, res) => {
+
     if( BlogPosts.posts.find(post => post.id = req.params.id)){
         BlogPosts.delete(req.params.id);
         console.log(`Deleted blog post with id ${req.params.id}.`.red);    
@@ -88,7 +89,7 @@ router.put('/:id', jsonParser, (req,res) => {
 ////////////////////////////////////////////////////////////////
 //// Utility
 ////////////////////////////////////////////////////////////////
-function validateFields(requiredFields, req){
+function validateFields(requiredFields, req){    
     requiredFields.forEach( field => {
         if (!(field in req.body)){
             let message = `Request is missing a required field: ${field}.`;
